@@ -15,7 +15,9 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class SignUp extends AppCompatActivity {
 
@@ -76,6 +78,11 @@ public class SignUp extends AppCompatActivity {
                         }
 
                         reference = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
+
+                        ArrayList list = new ArrayList<>();
+                        list.add("me");
+                        HashMap<String, ArrayList> hashMap1 = new HashMap<>();
+                        hashMap1.put("list", list);
 
                         HashMap<String, Object> hashMap = new HashMap<>();
                         hashMap.put("Name", name);
