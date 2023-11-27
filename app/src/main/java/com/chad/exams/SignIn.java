@@ -5,21 +5,16 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import java.util.HashMap;
 
 public class SignIn extends AppCompatActivity {
 
@@ -27,6 +22,8 @@ public class SignIn extends AppCompatActivity {
     public EditText editTextPassword;
     private FirebaseAuth firebaseAuth;
     public MaterialButton buttonSignIn;
+
+    public String mainName;
 
 
     @Override
@@ -37,6 +34,9 @@ public class SignIn extends AppCompatActivity {
         editTextEmail = findViewById(R.id.editTextEmail);
         editTextPassword = findViewById(R.id.editTextPassword);
         buttonSignIn = findViewById(R.id.signInButton);
+
+        Intent intent = getIntent();
+        mainName = intent.getStringExtra("Level");
 
 
         firebaseAuth = FirebaseAuth.getInstance();
@@ -56,10 +56,26 @@ public class SignIn extends AppCompatActivity {
                         reference.addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                Intent intent = new Intent(SignIn.this, HomeActivity.class);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                startActivity(intent);
-                                finish();
+                                if(mainName.equals("Admin")) {
+                                    Intent intent = new Intent(SignIn.this, HomeActivityAdmin.class);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    startActivity(intent);
+                                } else if(mainName.equals("Lecturer")) {
+                                    Intent intent = new Intent(SignIn.this, HomeActivityLec.class);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    startActivity(intent);
+                                } else if(mainName.equals("Student")) {
+                                    Intent intent = new Intent(SignIn.this, HomeActivityStudent.class);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    startActivity(intent);
+                                } else {
+                                    Toast.makeText(SignIn.this, "Failed", Toast.LENGTH_SHORT).show();
+                                }
+                                Toast.makeText(SignIn.this, "Hello" + mainName, Toast.LENGTH_SHORT).show();
+
+//                                Intent intent = new Intent(SignIn.this, HomeActivityAdmin.class);
+//                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+//                                startActivity(intent);
                             }
 
                             @Override

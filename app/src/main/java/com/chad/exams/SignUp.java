@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,6 +28,8 @@ public class SignUp extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private DatabaseReference reference;
 
+    String mainName;
+
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -44,15 +45,15 @@ public class SignUp extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
 
+        Intent intent = getIntent();
+        mainName = intent.getStringExtra("Level");
+        textMain.setText(mainName);
 
         textSignIn.setOnClickListener(v -> {
-            Intent intent = new Intent(SignUp.this, SignIn.class);
-            startActivity(intent);
+            Intent intentChange = new Intent(SignUp.this, SignIn.class);
+            intentChange.putExtra("Level", mainName);
+            startActivity(intentChange);
         });
-
-        Intent intent = getIntent();
-        String mainName = intent.getStringExtra("Level");
-        textMain.setText(mainName);
 
         buttonSignUp.setOnClickListener(v -> {
             implementFirebase();
@@ -82,10 +83,19 @@ public class SignUp extends AppCompatActivity {
                         hashMap.put("UserId", userId);
 
                         reference.setValue(hashMap).addOnCompleteListener(task1 -> {
-
-                            Intent intent = new Intent(SignUp.this, HomeActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(intent);
+                            if(mainName == "Admin") {
+                                Intent intent = new Intent(SignUp.this, HomeActivityAdmin.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(intent);
+                            } else if(mainName == "Lecturer") {
+                                Intent intent = new Intent(SignUp.this, HomeActivityLec.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(intent);
+                            } else if(mainName == "Student") {
+                                Intent intent = new Intent(SignUp.this, HomeActivityStudent.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(intent);
+                            }
                         });
                     }
                 })
