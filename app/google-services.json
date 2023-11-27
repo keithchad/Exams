@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "528092245635",
+    "project_id": "exams-8301c",
+    "storage_bucket": "exams-8301c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:528092245635:android:cd5d2a4dc2f4c9afd3b5b6",
+        "android_client_info": {
+          "package_name": "com.chad.exams"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCWDijUOa3lYlTF8b9CI3ag0RFGU316v8s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
