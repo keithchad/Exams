@@ -77,7 +77,7 @@ public class SignUp extends AppCompatActivity {
                             userId = firebaseUser.getUid();
                         }
 
-                        reference = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
+                        reference = FirebaseDatabase.getInstance().getReference().child(mainName).child(userId);
 
                         ArrayList list = new ArrayList<>();
                         list.add("me");
@@ -85,23 +85,25 @@ public class SignUp extends AppCompatActivity {
                         hashMap1.put("list", list);
 
                         HashMap<String, Object> hashMap = new HashMap<>();
-                        hashMap.put("Name", name);
-                        hashMap.put("Email", email);
-                        hashMap.put("UserId", userId);
+                        hashMap.put("name", name);
+                        hashMap.put("email", email);
+                        hashMap.put("userId", userId);
 
                         reference.setValue(hashMap).addOnCompleteListener(task1 -> {
-                            if(mainName == "Admin") {
-                                Intent intent = new Intent(SignUp.this, HomeActivityAdmin.class);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                startActivity(intent);
-                            } else if(mainName == "Lecturer") {
-                                Intent intent = new Intent(SignUp.this, HomeActivityLec.class);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                startActivity(intent);
-                            } else if(mainName == "Student") {
-                                Intent intent = new Intent(SignUp.this, HomeActivityStudent.class);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                startActivity(intent);
+                            if (task1.isSuccessful()) {
+                                if (mainName == "Admin") {
+                                    Intent intent = new Intent(SignUp.this, HomeActivityAdmin.class);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    startActivity(intent);
+                                } else if (mainName == "Lecturer") {
+                                    Intent intent = new Intent(SignUp.this, HomeActivityLec.class);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    startActivity(intent);
+                                } else if (mainName == "Student") {
+                                    Intent intent = new Intent(SignUp.this, HomeActivityStudent.class);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    startActivity(intent);
+                                }
                             }
                         });
                     }

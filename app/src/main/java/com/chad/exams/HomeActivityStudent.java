@@ -160,6 +160,7 @@ public class HomeActivityStudent extends AppCompatActivity {
             implementFirebase();
 
         });
+
         readList();
 
 
@@ -173,37 +174,38 @@ public class HomeActivityStudent extends AppCompatActivity {
             userId = firebaseUser.getUid();
         }
 
-        reference = FirebaseDatabase.getInstance().getReference().child("Users").child(userId).child("Units");
+        reference = FirebaseDatabase.getInstance().getReference().child("Student").child(userId).child("Units");
 
         ArrayList list = new ArrayList<>();
         if (unit1!=null || unit2!=null|| unit3!=null|| unit4!=null|| unit5!=null|| unit6!=null|| unit7!=null||
                 unit8!=null|| unit9!=null|| unit10!=null) {
-            list.add(unit1);
-            list.add(unit2);
-            list.add(unit3);
-            list.add(unit4);
-            list.add(unit5);
-            list.add(unit6);
-            list.add(unit7);
-            list.add(unit8);
-            list.add(unit9);
-            list.add(unit10);
 
+            HashMap<String, Object> hashMap = new HashMap<>();
+            hashMap.put("unit1", unit1);
+            hashMap.put("unit2", unit2);
+            hashMap.put("unit3", unit3);
+            hashMap.put("unit4", unit4);
+            hashMap.put("unit5", unit5);
+            hashMap.put("unit6", unit6);
+            hashMap.put("unit7", unit7);
+            hashMap.put("unit8", unit8);
+            hashMap.put("unit9", unit9);
+            hashMap.put("unit10", unit10);
+
+
+            reference.setValue(hashMap).addOnCompleteListener(task1 -> {
+
+
+            }).addOnFailureListener(e -> {
+                Toast.makeText(this, "Failed!", Toast.LENGTH_SHORT).show();
+            });
         }
-        HashMap<String, ArrayList> hashMap = new HashMap<>();
-        hashMap.put("list", list);
-
-        reference.setValue(hashMap).addOnCompleteListener(task1 -> {
-
-        }).addOnFailureListener(e -> {
-            Toast.makeText(this, "Failed!", Toast.LENGTH_SHORT).show();
-        });
 
     }
 
     private void readList() {
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Users").child(firebaseUser.getUid()).child("Units");
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Student").child(firebaseUser.getUid()).child("Units");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
