@@ -1,23 +1,32 @@
 package com.chad.exams;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.button.MaterialButton;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class UnitsAdapter extends RecyclerView.Adapter<UnitsAdapter.ViewHolder> {
 
     private final Context context;
-    private final List<Units> list;
+    private final List<String> list;
 
-    public UnitsAdapter(Context context, List<Units> list) {
+    public UnitsAdapter(Context context, List<String> list) {
         this.context = context;
         this.list = list;
     }
@@ -31,13 +40,41 @@ public class UnitsAdapter extends RecyclerView.Adapter<UnitsAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Units units = list.get(position);
-        holder.textName.setText(units.getList().toString());
-//        holder.itemView.setOnClickListener(v -> {
-//            Intent intent = new Intent(context, StudentsUnits.class);
-//            intent.putExtra("userId", students.getUserId());
-//            context.startActivity(intent);
-//        });
+        String string = list.get(position);
+        holder.textName.setText(string);
+        holder.itemView.setOnClickListener(v -> {
+            Toast.makeText(context, string, Toast.LENGTH_SHORT).show();
+            //showCustomDialog();
+
+        });
+
+    }
+
+    private void showCustomDialog() {
+
+        final Dialog dialog = new Dialog(context.getApplicationContext());
+        //We have added a title in the custom layout. So let's disable the default title.
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        //The user will be able to cancel the dialog bu clicking anywhere outside the dialog.
+        dialog.setCancelable(true);
+        //Mention the name of the layout of your custom dialog.
+        dialog.setContentView(R.layout.custom_dialog);
+
+        //Initializing the views of the dialog.
+        final EditText marks = dialog.findViewById(R.id.name_et);
+        Button submitButton = dialog.findViewById(R.id.submit_button);
+
+
+        submitButton.setOnClickListener(v -> {
+            String mark = marks.getText().toString();
+            implementDatabase(mark);
+            dialog.dismiss();
+        });
+
+        dialog.show();
+    }
+
+    private void implementDatabase(String mark) {
 
     }
 

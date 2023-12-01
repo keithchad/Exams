@@ -19,6 +19,7 @@ import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class StudentsUnits extends AppCompatActivity {
@@ -26,7 +27,7 @@ public class StudentsUnits extends AppCompatActivity {
     String userId;
     private RecyclerView recyclerView;
     private UnitsAdapter unitsAdapter;
-    private List<Units> list;
+    private List<String> list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,18 +53,15 @@ public class StudentsUnits extends AppCompatActivity {
     }
 
     private void readUnits() {
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Student").child(userId).child("Units");
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Student").child(userId).child("Units").child("list");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                GenericTypeIndicator<ArrayList<Units>> t = new GenericTypeIndicator<ArrayList<Units>>() {};
-//                ArrayList<Units> yourStringArray = snapshot.getValue(t);
-//                Toast.makeText(getContext(),yourStringArray.get(0).getList(),Toast.LENGTH_LONG).show();
 
                 list.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    Units units = dataSnapshot.getValue(Units.class);
-                    list.add(units);
+                    String name = dataSnapshot.getValue(String.class);
+                    list.add(name);
                 }
                 unitsAdapter.notifyDataSetChanged();
             }

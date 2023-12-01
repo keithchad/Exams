@@ -177,25 +177,36 @@ public class HomeActivityStudent extends AppCompatActivity {
         reference = FirebaseDatabase.getInstance().getReference().child("Student").child(userId).child("Units");
 
         ArrayList list = new ArrayList<>();
-        if (unit1!=null || unit2!=null|| unit3!=null|| unit4!=null|| unit5!=null|| unit6!=null|| unit7!=null||
-                unit8!=null|| unit9!=null|| unit10!=null) {
 
-            HashMap<String, Object> hashMap = new HashMap<>();
-            hashMap.put("unit1", unit1);
-            hashMap.put("unit2", unit2);
-            hashMap.put("unit3", unit3);
-            hashMap.put("unit4", unit4);
-            hashMap.put("unit5", unit5);
-            hashMap.put("unit6", unit6);
-            hashMap.put("unit7", unit7);
-            hashMap.put("unit8", unit8);
-            hashMap.put("unit9", unit9);
-            hashMap.put("unit10", unit10);
+        if (unit1 + "   70Marks"!=null || unit2 + "   80Marks"!=null|| unit3 + "   50Marks"!=null|| unit4 + "   92Marks"!=null|| unit5 + "   56Marks"!=null|| unit6 + "   32Marks"!=null|| unit7 + "   78Marks"!=null||
+                unit8 + "   71Marks"!=null|| unit9 + "   57Marks"!=null|| unit10 + "   45Marks"!=null) {
+
+            list.add(unit1 + "   70Marks");
+            list.add(unit2 + "   80Marks");
+            list.add(unit3 + "   50Marks");
+            list.add(unit4 + "   92Marks");
+            list.add(unit5 + "   56Marks");
+            list.add(unit6 + "   32Marks");
+            list.add(unit7 + "   78Marks");
+            list.add(unit8 + "   71Marks");
+            list.add(unit9 + "   57Marks");
+            list.add(unit10 + "   45Marks");
+
+            HashMap<String, ArrayList> hashMap = new HashMap<>();
+            hashMap.put("list", list);
+//            hashMap.put("unit2", unit2);
+//            hashMap.put("unit3", unit3);
+//            hashMap.put("unit4", unit4);
+//            hashMap.put("unit5", unit5);
+//            hashMap.put("unit6", unit6);
+//            hashMap.put("unit7", unit7);
+//            hashMap.put("unit8", unit8);
+//            hashMap.put("unit9", unit9);
+//            hashMap.put("unit10", unit10);
 
 
             reference.setValue(hashMap).addOnCompleteListener(task1 -> {
-
-
+                Toast.makeText(this, "Successfully Registered Units", Toast.LENGTH_SHORT).show();
             }).addOnFailureListener(e -> {
                 Toast.makeText(this, "Failed!", Toast.LENGTH_SHORT).show();
             });

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="16dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Unit Marks"
+        android:textSize="24sp"
+        android:fontFamily="@font/ubuntu_medium"
+        android:textColor="@color/black"
+        android:layout_marginBottom="16dp"/>
+
+
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:autofillHints="name"
+            android:fontFamily="@font/ubuntu_regular"
+            android:hint="Marks"
+            android:inputType="text"
+            android:imeOptions="actionNext"
+            android:id="@+id/name_et"
+            android:textColor="@color/black" />
+
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:text="Submit"
+        app:cornerRadius="10dp"
+        android:textColor="@color/white"
+        android:id="@+id/submit_button"/>
+</LinearLayout>
