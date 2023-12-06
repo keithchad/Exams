@@ -221,7 +221,7 @@ public class HomeActivityStudent extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot dataSnapshot: snapshot.getChildren()) {
-                    unitList.setText(dataSnapshot.getValue().toString());
+                    unitList.setText("Units have been chosen successfully.");
                 }
 
                 //notificationAdapter.notifyDataSetChanged();
